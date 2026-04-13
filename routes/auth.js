@@ -94,6 +94,19 @@ authRouter.get('/userdata',auth, async (req, res) => {
 
 });
 
+// Update User Type ......
+authRouter.post('/api/update-user-type', auth, async (req, res) => {
+    try {
+        const { type } = req.body;
+        let user = await User.findById(req.user);
+        user.type = type;
+        user = await user.save();
+        res.json(user);
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+});
+
 module.exports = authRouter;
 
 
